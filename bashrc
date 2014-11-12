@@ -26,9 +26,9 @@ update_variable_with_path() {
   local old_value=$(eval "echo \$${variable_name}")
 
   # Check if path is already in variable_name.
-	[[ "$old_value" =~ "$path" ]] && return
+  [[ "$old_value" =~ "$path" ]] && return
    
-	# Update the Variable
+  # Update the Variable
   if [[ -z $old_value ]]; then
     eval "export ${variable_name}=${path}"
   else
