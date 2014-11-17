@@ -1,8 +1,7 @@
 #!/bin/bash
 
 dotfile_dir="${HOME}/dotfiles"
-if ! [[ -d $dotfile_dir ]];
-then
+if [[ ! -d $dotfile_dir ]]; then
   echo "Couldn't find path: $dotfile_dir" 2>&1
   exit 1
 fi

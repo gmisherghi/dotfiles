@@ -1,6 +1,7 @@
 PS1='\h:\W\$ '
 
 set -o vi
+[[ -e /usr/share/zoneinfo/US/Pacific ]] && export TZ="/usr/share/zoneinfo/US/Pacific"
 
 if [[ "Darwin" == $(uname) ]]; then
   alias ls="ls -G"
