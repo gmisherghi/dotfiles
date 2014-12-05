@@ -24,6 +24,6 @@ rm -f ~/.{bashrc,bash_profile,bash_logout,vimrc}
 ln -sf ${dotfile_dir}/bash_profile ~/.bash_profile
 ln -sf ${dotfile_dir}/bashrc ~/.bashrc
 ln -sf ${dotfile_dir}/bash_logout ~/.bash_logout
-[[ -d ~/.bash_log ]] || mkdir ~/.bash_log/
+[[ -d ~/.bash_logs ]] || mkdir ~/.bash_logs/
 ln -sf ${dotfile_dir}/vimrc ~/.vimrc
 mkdir ~/apps > /dev/null 2>&1

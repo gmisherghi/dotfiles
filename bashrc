@@ -10,7 +10,7 @@ log_command() {
   [[ $this_command == $prev_command ]] && return
   echo $this_command > $prev_command_file
   (echo -n "[$(date '+%Y%m%d %H%M%S')] "; fc -ln -1 | sed -e 's;^[ \t]*;;') \
-    >> ~/.bash_log/$(hostname -s).$(date +%Y%m) 2> /dev/null
+    >> ~/.bash_logs/$(hostname -s).$(date +%Y%m) 2> /dev/null
 }
 
 PS1='$(log_command)\h:\W\$ '
