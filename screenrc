@@ -1,0 +1,2 @@
+startup_message off
+caption always "%{= KW} %{= Kw}%{-} %-Lw%{= bW}%n%f %t%{-}%+Lw %= %c [%l]"
