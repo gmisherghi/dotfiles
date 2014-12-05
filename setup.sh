@@ -24,5 +24,6 @@ set -x
 rm -f ~/.{bashrc,bash_profile,vimrc}
 ln -sf ${dotfile_dir}/bashrc ~/.bashrc
 ln -sf ${dotfile_dir}/bash_profile ~/.bash_profile
+[[ -d ~/.bash_log ]] || mkdir ~/.bash_log/
 ln -sf ${dotfile_dir}/vimrc ~/.vimrc
 mkdir ~/apps > /dev/null 2>&1

@@ -1,7 +1,20 @@
-PS1='\h:\W\$ '
+unset HISTFILE
+
+prev_command_file=$(mktemp /tmp/command_history.XXXXXXXX)
+log_command() {
+  this_command=$(fc -l -1 2> /dev/null | cut -f 1)
+  prev_command=$(cat $prev_command_file)
+  [[ $this_command == $prev_command ]] && return
+  echo $this_command > $prev_command_file
+  (echo -n "[$(date '+%Y%m%d %H%M%S')] "; fc -ln -1 | sed -e 's;^[ \t]*;;') \
+    >> ~/.bash_log/$(hostname -s).$(date +%Y%m) 2> /dev/null
+}
+
+PS1='$(log_command)\h:\W\$ '
 
 set -o vi
-[[ -e /usr/share/zoneinfo/US/Pacific ]] && export TZ="/usr/share/zoneinfo/US/Pacific"
+[[ -e /usr/share/zoneinfo/US/Pacific ]] &&
+  export TZ="/usr/share/zoneinfo/US/Pacific"
 
 if [[ "Darwin" == $(uname) ]]; then
   alias ls="ls -G"

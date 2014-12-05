@@ -1,10 +1,18 @@
-set et ts=2 sts=2 sw=2
+set nocompatible
+set backspace=indent,eol,start
+set ruler
+set showcmd
+set incsearch
+set hlsearch
+
+set et ts=2 sts=2 sw=2 ai
 
 nmap <leader>l :set list!<CR>
 set listchars=tab:▸\ ,eol:¬
 
 if has("autocmd")
   filetype on
+  filetype plugin indent on
   autocmd FileType make setlocal noet ts=4 sts=4 sw=4
   " autocmd BufNewFile,BufRead *.rss setfiletype xml
 endif
