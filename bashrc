@@ -1,6 +1,9 @@
 unset HISTFILE
 
-prev_command_file=$(mktemp /tmp/command_history.XXXXXXXX)
+prev_command_file=${prev_command_file:-$(mktemp /tmp/command_history.XXXXXXXX)}
+export prev_command_file
+echo > $prev_command_file
+
 log_command() {
   this_command=$(fc -l -1 2> /dev/null | cut -f 1)
   prev_command=$(cat $prev_command_file)
