@@ -1,8 +1,5 @@
 unset HISTFILE
 
-prev_command_file=${prev_command_file:-$(mktemp /tmp/command_history.XXXXXXXX)}
-export prev_command_file
-echo > $prev_command_file
 
 log_command() {
   this_command=$(fc -l -1 2> /dev/null | cut -f 1)
@@ -19,7 +16,8 @@ set -o vi
 [[ -e /usr/share/zoneinfo/US/Pacific ]] &&
   export TZ="/usr/share/zoneinfo/US/Pacific"
 
-if [[ "Darwin" == $(uname) ]]; then
+if [[ "Darwin" == $(uname) ]];
+then
   alias ls="ls -G"
 else
   alias ls="ls --color=auto"
@@ -46,19 +44,22 @@ update_variable_with_path() {
   [[ "$old_value" =~ "$path" ]] && return
    
   # Update the Variable
-  if [[ -z $old_value ]]; then
+  if [[ -z $old_value ]];
+  then
     eval "export ${variable_name}=${path}"
   else
     eval "export ${variable_name}=${old_value}${delimeter}${path}"
   fi
 }
 
-for DIR in $(find ~/apps -maxdepth 1 -mindepth 1 -type d); do
+for DIR in $(find ~/apps -maxdepth 1 -mindepth 1 -type d);
+do
   update_variable_with_path PATH ${DIR}/bin
   update_variable_with_path MANPATH ${DIR}/man
   update_variable_with_path MANPATH ${DIR}/share/man
   update_variable_with_path LDLIBRARYPATH ${DIR}/lib
-  for PYDIR in ${DIR}/lib/python*/; do
+  for PYDIR in ${DIR}/lib/python*/;
+  do
     update_variable_with_path PYTHONPATH $PYDIR
     update_variable_with_path PYTHONPATH ${PYDIR}/site-packages
   done
