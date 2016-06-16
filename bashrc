@@ -1,15 +1,5 @@
 unset HISTFILE
 
-
-log_command() {
-  this_command=$(fc -l -1 2> /dev/null | cut -f 1)
-  prev_command=$(cat $prev_command_file)
-  [[ $this_command == $prev_command ]] && return
-  echo $this_command > $prev_command_file
-  (echo -n "[$(date '+%Y%m%d %H%M%S')] "; fc -ln -1 | sed -e 's;^[ \t]*;;') \
-    >> ~/.bash_logs/$(hostname -s).$(date +%Y%m) 2> /dev/null
-}
-
 PS1='$(log_command)\h:\W\$ '
 
 set -o vi
@@ -27,6 +17,22 @@ alias less="less -R"
 
 export EDITOR=vim
 export LESSHISTFILE=/dev/null
+
+if [[ -z $prev_command_file ]];
+then
+  prev_command_file=${prev_command_file:-$(mktemp /tmp/command_history.XXXXXXXX)}
+  export prev_command_file
+  echo > $prev_command_file
+fi
+
+log_command() {
+  this_command=$(fc -l -1 2> /dev/null | cut -f 1)
+  prev_command=$(cat $prev_command_file)
+  [[ $this_command == $prev_command ]] && return
+  echo $this_command > $prev_command_file
+  (echo -n "[$(date '+%Y%m%d %H%M%S')] "; fc -ln -1 | sed -e 's;^[ \t]*;;') \
+    >> ~/.bash_logs/$(hostname -s).$(date +%Y%m) 2> /dev/null
+}
 
 # Updates an environment variable to include the given path.
 update_variable_with_path() {
@@ -64,3 +70,5 @@ do
     update_variable_with_path PYTHONPATH ${PYDIR}/site-packages
   done
 done
+
+[[ -e ~/.bashrc.local ]] && . ~/.bashrc.local
